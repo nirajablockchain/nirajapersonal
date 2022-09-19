@@ -46,6 +46,10 @@ def reward_function(params):
     # Penalize if the agent is too close to the next object
     reward_avoid = 1.0
 
+    if all_wheels_on_track and (0.5 * track_width - distance_from_center) >= 0.05:
+        reward_lane = 1.0
+    else:
+        reward_lane = 1e-3
     # Distance to the next object
     distance_closest_object = objects_distance[next_object_index]
     # Decide if the agent and the next object is on the same lane

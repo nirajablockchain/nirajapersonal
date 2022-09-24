@@ -2,17 +2,17 @@
    "action_space":[
       {
          "steering_angle":-16.05,
-         "speed":1.4771,
+         "speed":1.48,
          "index":0
       },
       {
          "steering_angle":5.18,
-         "speed":2.8336,
+         "speed":2.8,
          "index":1
       },
       {
          "steering_angle":0.01,
-         "speed":3.9493,
+         "speed":3.95,
          "index":2
       },
       {

@@ -1,0 +1,441 @@
+# Length: 16.19 | Total time: 8.70 s | Total steps: 132.0 | Look ahead: 3,6,9
+# Force limit speed 2.1 (one below top most)
+
+# Optimal racing line
+# Each row: [x,y,speed,timeFromPreviousPoint]
+racing_track = [[ 0.64022624, -0.36841023],
+       [ 0.93922524, -0.39492715],
+       [ 1.23776541, -0.4197    ],
+       [ 1.53570399, -0.44232968],
+       [ 1.8329095 , -0.46247827],
+       [ 2.12921934, -0.4797228 ],
+       [ 2.42446023, -0.49363168],
+       [ 2.71846562, -0.50381707],
+       [ 3.01110874, -0.51002923],
+       [ 3.30223705, -0.51196044],
+       [ 3.59157473, -0.5089934 ],
+       [ 3.87881974, -0.50049858],
+       [ 4.16358389, -0.48569141],
+       [ 4.44546798, -0.46383756],
+       [ 4.72357051, -0.43313895],
+       [ 4.99690088, -0.39187048],
+       [ 5.26412469, -0.33791882],
+       [ 5.52337044, -0.2686281 ],
+       [ 5.77190332, -0.18061802],
+       [ 6.0057115 , -0.0698629 ],
+       [ 6.21866348,  0.06808659],
+       [ 6.40956851,  0.22992832],
+       [ 6.58157254,  0.40953807],
+       [ 6.73361437,  0.60592757],
+       [ 6.86571863,  0.81733911],
+       [ 6.97756462,  1.0424423 ],
+       [ 7.06666445,  1.28105898],
+       [ 7.13501777,  1.53030446],
+       [ 7.18406982,  1.78800365],
+       [ 7.21480495,  2.05233554],
+       [ 7.22819701,  2.32150554],
+       [ 7.22511986,  2.59372853],
+       [ 7.20626633,  2.86721515],
+       [ 7.17210163,  3.14016118],
+       [ 7.12286913,  3.41075571],
+       [ 7.05871297,  3.67725244],
+       [ 6.9799448 ,  3.93814554],
+       [ 6.88681369,  4.19215044],
+       [ 6.7795894 ,  4.43820801],
+       [ 6.65819841,  4.67520822],
+       [ 6.52207894,  4.90176093],
+       [ 6.36949748,  5.11545098],
+       [ 6.19750521,  5.31229877],
+       [ 6.00311984,  5.48689852],
+       [ 5.79187666,  5.6420741 ],
+       [ 5.56718122,  5.77955417],
+       [ 5.33131411,  5.90019801],
+       [ 5.08602153,  6.00421582],
+       [ 4.83300952,  6.091682  ],
+       [ 4.5738896 ,  6.16212724],
+       [ 4.31051103,  6.21493857],
+       [ 4.044962  ,  6.24942289],
+       [ 3.77973694,  6.26327584],
+       [ 3.51827851,  6.25438296],
+       [ 3.26495801,  6.22070276],
+       [ 3.02507899,  6.16043814],
+       [ 2.80478331,  6.07229722],
+       [ 2.61088626,  5.95584543],
+       [ 2.45084321,  5.81182256],
+       [ 2.33506653,  5.6417309 ],
+       [ 2.27563986,  5.45090434],
+       [ 2.25803649,  5.25115931],
+       [ 2.27749967,  5.04676722],
+       [ 2.33086645,  4.84058142],
+       [ 2.41515438,  4.6347714 ],
+       [ 2.52657859,  4.43091014],
+       [ 2.66162344,  4.23005192],
+       [ 2.81594741,  4.03263044],
+       [ 2.98048012,  3.84584669],
+       [ 3.12653825,  3.65423257],
+       [ 3.24795634,  3.45724639],
+       [ 3.33957473,  3.25539491],
+       [ 3.3951628 ,  3.05014532],
+       [ 3.40844492,  2.84461193],
+       [ 3.36887849,  2.64523091],
+       [ 3.28524419,  2.45706051],
+       [ 3.16335253,  2.28332143],
+       [ 3.00668111,  2.12703835],
+       [ 2.81876928,  1.99074885],
+       [ 2.60382397,  1.87610242],
+       [ 2.36627964,  1.7839213 ],
+       [ 2.11077353,  1.71385826],
+       [ 1.84142943,  1.66504562],
+       [ 1.56171005,  1.63660545],
+       [ 1.27460934,  1.62801236],
+       [ 0.98313629,  1.63924036],
+       [ 0.69087908,  1.67004686],
+       [ 0.40259643,  1.72159563],
+       [ 0.12422335,  1.7939347 ],
+       [-0.13835982,  1.88690999],
+       [-0.38052451,  1.99991892],
+       [-0.59882755,  2.13221804],
+       [-0.79025091,  2.28319855],
+       [-0.9503562 ,  2.45304139],
+       [-1.07382648,  2.64173381],
+       [-1.15206705,  2.84963135],
+       [-1.19331254,  3.07059149],
+       [-1.20471597,  3.30075034],
+       [-1.19245739,  3.53745482],
+       [-1.16262602,  3.77861579],
+       [-1.1212766 ,  4.0243743 ],
+       [-1.09468123,  4.27143367],
+       [-1.0868008 ,  4.51358153],
+       [-1.10057808,  4.74728386],
+       [-1.1387279 ,  4.96954876],
+       [-1.20435338,  5.17656912],
+       [-1.30193854,  5.3619558 ],
+       [-1.42764126,  5.52409799],
+       [-1.58484565,  5.65373156],
+       [-1.77036163,  5.74402636],
+       [-1.97520706,  5.7972416 ],
+       [-2.19340955,  5.81503988],
+       [-2.42032007,  5.79895912],
+       [-2.65201816,  5.75169064],
+       [-2.88552441,  5.67493934],
+       [-3.11834252,  5.57106474],
+       [-3.34854742,  5.44295629],
+       [-3.57480224,  5.29373318],
+       [-3.79628631,  5.12647233],
+       [-4.01239447,  4.94360963],
+       [-4.22311465,  4.74819563],
+       [-4.42839424,  4.54233655],
+       [-4.62821071,  4.32778855],
+       [-4.8225228 ,  4.1059884 ],
+       [-5.01124862,  3.87808768],
+       [-5.19425768,  3.64498768],
+       [-5.37136689,  3.40737561],
+       [-5.54233665,  3.16576263],
+       [-5.70686748,  2.92052254],
+       [-5.86459929,  2.67192928],
+       [-6.01511519,  2.42019105],
+       [-6.15795261,  2.16548026],
+       [-6.29262318,  1.9079586 ],
+       [-6.4186319 ,  1.6477949 ],
+       [-6.53547968,  1.38517204],
+       [-6.64267822,  1.12029162],
+       [-6.739782  ,  0.85338037],
+       [-6.82626475,  0.58466295],
+       [-6.90177067,  0.31440027],
+       [-6.96623649,  0.04288489],
+       [-7.01995675, -0.22957712],
+       [-7.06352333, -0.50269448],
+       [-7.0966861 , -0.77624309],
+       [-7.11875719, -1.04997778],
+       [-7.12840948, -1.3235764 ],
+       [-7.12376112, -1.59655817],
+       [-7.10289518, -1.86824075],
+       [-7.06181171, -2.13735331],
+       [-6.99468243, -2.40124139],
+       [-6.90300552, -2.65772855],
+       [-6.79279172, -2.9068122 ],
+       [-6.66693274, -3.14841838],
+       [-6.52800153, -3.38289777],
+       [-6.37733787, -3.61029127],
+       [-6.21596546, -3.83061955],
+       [-6.04469993, -4.04387621],
+       [-5.86403547, -4.24987794],
+       [-5.67400162, -4.44806178],
+       [-5.47433091, -4.63752457],
+       [-5.26355069, -4.81594182],
+       [-5.03998977, -4.98006168],
+       [-4.80219393, -5.12577958],
+       [-4.55430449, -5.25680884],
+       [-4.29814255, -5.37491547],
+       [-4.03514198, -5.4816518 ],
+       [-3.76658108, -5.57849552],
+       [-3.4933477 , -5.66632014],
+       [-3.21625687, -5.74588606],
+       [-2.93598442, -5.81768893],
+       [-2.65312705, -5.88205786],
+       [-2.36820454, -5.93911371],
+       [-2.08170478, -5.98885477],
+       [-1.79410215, -6.03120394],
+       [-1.50586076, -6.06602959],
+       [-1.21743311, -6.09315785],
+       [-0.92927816, -6.11213714],
+       [-0.64178335, -6.12327888],
+       [-0.35534419, -6.12621274],
+       [-0.07034869, -6.12066523],
+       [ 0.21283465, -6.10643129],
+       [ 0.49386387, -6.08337444],
+       [ 0.77253561, -6.05177701],
+       [ 1.0486957 , -6.01195016],
+       [ 1.32221021, -5.96418419],
+       [ 1.59254024, -5.90767594],
+       [ 1.85880348, -5.84115847],
+       [ 2.12095472, -5.765568  ],
+       [ 2.37817909, -5.68015514],
+       [ 2.62924187, -5.58376262],
+       [ 2.87221877, -5.47471787],
+       [ 3.10444445, -5.3512786 ],
+       [ 3.32200895, -5.21161325],
+       [ 3.51972922, -5.05459105],
+       [ 3.69075493, -4.88021172],
+       [ 3.82577954, -4.69022103],
+       [ 3.91663015, -4.48971775],
+       [ 3.9552708 , -4.28618397],
+       [ 3.95857791, -4.0852995 ],
+       [ 3.92534726, -3.89031716],
+       [ 3.84734864, -3.70741588],
+       [ 3.7173758 , -3.54695443],
+       [ 3.55099766, -3.4086033 ],
+       [ 3.35298219, -3.29423779],
+       [ 3.12867964, -3.20411148],
+       [ 2.88324595, -3.13724993],
+       [ 2.62130352, -3.0917802 ],
+       [ 2.3468405 , -3.06519297],
+       [ 2.06319718, -3.0545831 ],
+       [ 1.77298678, -3.05707414],
+       [ 1.47838032, -3.06909063],
+       [ 1.17877785, -3.08786806],
+       [ 0.8786528 , -3.10272393],
+       [ 0.57852231, -3.11411869],
+       [ 0.27839035, -3.12233855],
+       [-0.0217407 , -3.12752773],
+       [-0.32185408, -3.12903271],
+       [-0.62180946, -3.12614498],
+       [-0.92120401, -3.11806519],
+       [-1.21937073, -3.10388629],
+       [-1.51546836, -3.08274316],
+       [-1.80857152, -3.05385854],
+       [-2.09757991, -3.0162767 ],
+       [-2.38124947, -2.96901928],
+       [-2.65820476, -2.91113111],
+       [-2.92707627, -2.84185948],
+       [-3.18582035, -2.75982389],
+       [-3.43232732, -2.66400216],
+       [-3.6638452 , -2.55314898],
+       [-3.87717294, -2.42623423],
+       [-4.06827526, -2.28233856],
+       [-4.23236255, -2.12109906],
+       [-4.36335588, -1.94290208],
+       [-4.45321158, -1.7495519 ],
+       [-4.489141  , -1.54636409],
+       [-4.47432837, -1.34415244],
+       [-4.41799549, -1.14945613],
+       [-4.31834219, -0.96924672],
+       [-4.18486065, -0.80548436],
+       [-4.02153965, -0.66010179],
+       [-3.83195713, -0.53434223],
+       [-3.61993923, -0.42830221],
+       [-3.38850034, -0.3419698 ],
+       [-3.14059642, -0.2747656 ],
+       [-2.87914648, -0.22547864],
+       [-2.60666099, -0.19279789],
+       [-2.32568789, -0.17467373],
+       [-2.03842938, -0.16885009],
+       [-1.74671611, -0.17299421],
+       [-1.45191091, -0.18508393],
+       [-1.1549745 , -0.20355406],
+       [-0.85671359, -0.22675992],
+       [-0.55769027, -0.25327851],
+       [-0.25826758, -0.28189613],
+       [ 0.04133466, -0.31156029],
+       [ 0.34088959, -0.34049484],
+       [ 0.64022624, -0.36841023]]
+       
+       
+import math
+
+
+class Reward:
+    def __init__(self, verbose=False):
+        self.first_racingpoint_index = None
+        self.verbose = verbose
+
+    def reward_function(self, params):
+
+        ################## HELPER FUNCTIONS ###################
+
+        def dist_2_points(x1, x2, y1, y2):
+            return abs(abs(x1 - x2) ** 2 + abs(y1 - y2) ** 2) ** 0.5
+
+        def closest_2_racing_points_index(racing_coords, car_coords):
+
+            # Calculate all distances to racing points
+            distances = []
+            for i in range(len(racing_coords)):
+                distance = dist_2_points(x1=racing_coords[i][0], x2=car_coords[0],
+                                         y1=racing_coords[i][1], y2=car_coords[1])
+                distances.append(distance)
+
+            # Get index of the closest racing point
+            closest_index = distances.index(min(distances))
+
+            # Get index of the second closest racing point
+            distances_no_closest = distances.copy()
+            distances_no_closest[closest_index] = 999
+            second_closest_index = distances_no_closest.index(
+                min(distances_no_closest))
+
+            return [closest_index, second_closest_index]
+
+        def dist_to_racing_line(closest_coords, second_closest_coords, car_coords):
+
+            # Calculate the distances between 2 closest racing points
+            a = abs(dist_2_points(x1=closest_coords[0],
+                                  x2=second_closest_coords[0],
+                                  y1=closest_coords[1],
+                                  y2=second_closest_coords[1]))
+
+            # Distances between car and closest and second closest racing point
+            b = abs(dist_2_points(x1=car_coords[0],
+                                  x2=closest_coords[0],
+                                  y1=car_coords[1],
+                                  y2=closest_coords[1]))
+            c = abs(dist_2_points(x1=car_coords[0],
+                                  x2=second_closest_coords[0],
+                                  y1=car_coords[1],
+                                  y2=second_closest_coords[1]))
+
+            # Calculate distance between car and racing line (goes through 2 closest racing points)
+            # try-except in case a=0 (rare bug in DeepRacer)
+            try:
+                distance = abs(-(a ** 4) + 2 * (a ** 2) * (b ** 2) + 2 * (a ** 2) * (c ** 2) -
+                               (b ** 4) + 2 * (b ** 2) * (c ** 2) - (c ** 4)) ** 0.5 / (2 * a)
+            except:
+                distance = b
+
+            return distance
+
+        # Calculate which one of the closest racing points is the next one and which one the previous one
+        def next_prev_racing_point(closest_coords, second_closest_coords, car_coords, heading):
+
+            # Virtually set the car more into the heading direction
+            heading_vector = [math.cos(math.radians(
+                heading)), math.sin(math.radians(heading))]
+            new_car_coords = [car_coords[0] + heading_vector[0],
+                              car_coords[1] + heading_vector[1]]
+
+            # Calculate distance from new car coords to 2 closest racing points
+            distance_closest_coords_new = dist_2_points(x1=new_car_coords[0],
+                                                        x2=closest_coords[0],
+                                                        y1=new_car_coords[1],
+                                                        y2=closest_coords[1])
+            distance_second_closest_coords_new = dist_2_points(x1=new_car_coords[0],
+                                                               x2=second_closest_coords[0],
+                                                               y1=new_car_coords[1],
+                                                               y2=second_closest_coords[1])
+
+            if distance_closest_coords_new <= distance_second_closest_coords_new:
+                next_point_coords = closest_coords
+                prev_point_coords = second_closest_coords
+            else:
+                next_point_coords = second_closest_coords
+                prev_point_coords = closest_coords
+
+            return [next_point_coords, prev_point_coords]
+
+
+        #################### RACING LINE ######################
+
+        ################## INPUT PARAMETERS ###################
+
+        # Read all input parameters
+        all_wheels_on_track = params['all_wheels_on_track']
+        x = params['x']
+        y = params['y']
+        distance_from_center = params['distance_from_center']
+        is_left_of_center = params['is_left_of_center']
+        heading = params['heading']
+        progress = params['progress']
+        steps = params['steps']
+        speed = params['speed']
+        steering_angle = params['steering_angle']
+        track_width = params['track_width']
+        waypoints = params['waypoints']
+        closest_waypoints = params['closest_waypoints']
+        is_offtrack = params['is_offtrack']
+
+        ############### OPTIMAL X,Y,SPEED,TIME ################
+
+        # Get closest indexes for racing line (and distances to all points on racing line)
+        closest_index, second_closest_index = closest_2_racing_points_index(
+            racing_track, [x, y])
+
+        # Get optimal [x, y, speed, time] for closest and second closest index
+        optimals = racing_track[closest_index]
+        optimals_second = racing_track[second_closest_index]
+
+        # Save first racingpoint of episode for later
+        if steps == 1 or self.first_racingpoint_index == None:
+            self.first_racingpoint_index = closest_index
+
+        ################ REWARD AND PUNISHMENT ################
+
+        ## Reward if car goes close to optimal racing line ##
+        DISTANCE_MULTIPLE = 10
+        dist = dist_to_racing_line(optimals[0:2], optimals_second[0:2], [x, y])
+        distance_reward = max(1e-3, 1 - (dist / (track_width * 0.5)))
+        distance_reward = distance_reward * DISTANCE_MULTIPLE
+
+        # Speed Reward (speed min1.5 and max2.4 gives rewardMax 10.4)
+        speed_reward = math.pow(speed/1.5, 5)
+        
+        # Average combined reward
+        reward = max(1, (distance_reward + speed_reward)/2)
+
+
+        ## Zero reward if off track ##
+        if all_wheels_on_track == False \
+                or is_offtrack :
+            reward = 1e-3
+
+        ## Incentive for finishing the lap in less steps ##
+        if progress == 100:
+            MIN_STEPS, MAX_STEPS = 80 , 150
+            finish_reward = 500
+            if steps <= MIN_STEPS:
+                finish_reward += 8000
+            elif steps < MAX_STEPS:
+                steps_factor = (MAX_STEPS-steps)/(MAX_STEPS-MIN_STEPS)
+                finish_reward += 5000 * steps_factor
+        else:
+            finish_reward = 0
+        reward += finish_reward
+
+        # Always return a float value
+        return float(reward)
+
+
+# add parameter verbose=True to get noisy output for testing
+reward_object = None
+
+
+def reward_function(params):
+    global reward_object
+    if params["steps"] <= 1 or reward_object == None:
+        # Ensure at each episode, new reward object is created
+        reward_object = Reward()
+    try:
+        reward = reward_object.reward_function(params)
+    except Exception as e:
+        print("APP Error: " + str(params))
+        raise e
+    return float(reward)

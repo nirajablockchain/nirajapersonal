@@ -1,6 +1,5 @@
 import math
 
-
 class Reward:
     def __init__(self, verbose=False):
         self.first_racingpoint_index = None
@@ -9,7 +8,7 @@ class Reward:
     def reward_function(self, params):
 
         # Import package (needed for heading)
-        import math
+      
 
         ################## HELPER FUNCTIONS ###################
 
@@ -117,8 +116,13 @@ class Reward:
         # Gives back indexes that lie between start and end index of a cyclical list
         # (start index is included, end index is not)
         def indexes_cyclical(start, end, array_len):
-
-            if end < start:
+            
+            if end is None :
+                end =0
+            if start is None:
+                start=0
+                
+            if end< start:
                 end += array_len
 
             return [index % array_len for index in range(start, end)]

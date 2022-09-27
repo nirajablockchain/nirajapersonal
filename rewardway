@@ -1,0 +1,79 @@
+import math
+prev_progress = 0
+def reward_function(params):
+    global prev_progress
+
+    # Read all input parameters
+    progress = max(0, params['progress'])
+    steps = params['steps']
+    speed = params['speed']
+    steering_angle = params['steering_angle']
+    is_offtrack = params['is_offtrack']
+
+    waypoints = params['waypoints']
+    closest_waypoints = params['closest_waypoints']
+    heading = params['heading']
+
+    # Reward - make progress as fast as possible
+    prog_per_step = max(0, ((progress / steps) ** 3) * 5)
+    prog_diff = max(0, progress - prev_progress)
+    reward = prog_per_step + prog_diff
+
+    track_width = params['track_width']
+    distance_from_center = params['distance_from_center']
+    all_wheels_on_track = params['all_wheels_on_track']
+    is_left_of_center = params['is_left_of_center']
+
+
+    if progress > 70 :
+        reward = reward*2
+
+    steering_angle = params['steering_angle']
+
+
+    # Calculate the direction of the center line based on the closest waypoints
+    next_point = waypoints[closest_waypoints[1]]
+    prev_point = waypoints[closest_waypoints[0]]
+
+    # Calculate the direction in radius, arctan2(dy, dx), the result is (-pi, pi) in radians
+    track_direction = math.atan2(next_point[1] - prev_point[1], next_point[0] - prev_point[0])
+
+
+    track_direction = math.degrees(track_direction)
+
+     # Cacluate the difference between the track direction and the heading direction of the car
+    direction_diff = abs(track_direction - heading)
+
+    # Penalize the reward if the difference is too large
+    DIRECTION_THRESHOLD = 15.0
+
+    malus=1
+
+
+    if direction_diff > DIRECTION_THRESHOLD:
+
+        malus=1-(direction_diff/50)
+        if malus<0 or malus>1:
+            malus = 0
+
+        reward *= malus
+
+    if  abs(steering_angle)  > DIRECTION_THRESHOLD :
+        reward = 1e-7
+
+    next_point = closest_waypoints[1]
+    
+    if (next_point >=56 and next_point < 67) or ( next_point >= 192 and next_point < 203 ) or or ( next_point >= 102 and next_point < 112 ) :
+        if is_left_of_center :
+            reward *= 1.3
+
+    if (next_point >=69 and next_point < 80) or (next_point >= 91 and next_point < 100 ) or ( next_point >= 228  and next_point < 239)  :
+        if is_left_of_center is False :
+            reward *= 1.3
+     ## Zero reward if ofttrack ##
+    if is_offtrack:
+        reward = 1e-7
+
+    prev_progress = progress
+    return float(reward)
+         

@@ -1,0 +1,55 @@
+prev_progress = 0
+def reward_function(params):
+    global prev_progress
+
+    # Read all input parameters
+    progress = max(0, params['progress'])
+    steps = params['steps']
+    speed = params['speed']
+    steering_angle = params['steering_angle']
+    is_offtrack = params['is_offtrack']
+
+    # Reward - make progress as fast as possible
+    prog_per_step = max(0, ((progress / steps) ** 3) * 5)
+    prog_diff = max(0, progress - prev_progress)
+    reward = prog_per_step + prog_diff
+    print(" start " + str(reward) + " progress " + str(progress) + " steps " + str(steps) + " prev_ rpgress" + str(prev_progres) )
+    
+    if progress != 0 and steps/progress <= 4.17 :
+        reward = reward + max(0, 4.17- (steps/progress)) * 2 
+        print("4.17 " + str(reward))
+
+    if speed > 3 :
+        reward = reward + max (0, (speed-3)) * 5 
+        print("speed 3 " + str(reward))
+
+    if abs(steering_angle) <=7:
+        if speed > 3 :
+            reward = reward + max (0, (speed-3)) * 5
+            print(" speed 3 angle " + str(reward))
+        else :
+            reward = reward * 0.9
+            print(" reduce speed 3 angle " + str(reward))
+
+    if abs(steering_angle) >=15 and speed > 1.4 :
+        reward = reward + max (0, (speed-1.4)) * 5
+        print("steering angle 15 " + str(reward))
+
+    if progress == 100 and steps <= 417 :
+        reward = reward + (417/steps)*500
+        print ("417 : " + str(steps) + "  reward " + str(reward))
+
+    elif progress == 100 and steps <= 425 :
+        reward = reward + (425/steps)*200
+        print ("425 : " + str(steps) + "  reward " + str(reward))
+
+    elif progress == 100 and steps <= 435 :
+        reward = reward + (435/steps)*150
+        print ("435 : " + str(steps) + "  reward " + str(reward))
+
+    ## Zero reward if off track ##
+    if is_offtrack:
+        reward = 1e-7
+
+    prev_progress = progress
+    return float(reward)

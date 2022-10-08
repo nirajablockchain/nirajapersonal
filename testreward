@@ -1,0 +1,34 @@
+import math
+
+prev_progress=0
+
+def reward_function(params):
+    '''
+    Example of penalize steering, which helps mitigate zig-zag behaviors
+    '''
+    global prev_progress
+
+    # Read input parameters
+    distance_from_center = params['distance_from_center']
+    track_width = params['track_width']
+    steering = abs(params['steering_angle']) # Only need the absolute steering angle
+    steps=params['steps']
+    progress=params['progress']
+
+    try:
+         # Reward - make progress as fast as possible
+         prog_diff = max(0, progress - prev_progress)
+         reward = 0.1 + math.pow(prog_diff * 2, 3) + (progress / steps)
+         if params['is_offtrack']:
+         ## Zero reward if off track ##
+             reward = 1e-7
+         if progress >= 100:
+         ## Final reward for faster finish ##
+            reward += 100 + ((progress / steps) ** 3) * 1000
+
+    except Exception as e:
+        print("APP Error: " + str(params))
+        raise e
+    # Set prev progress
+    prev_progress = progress
+    return float(reward)

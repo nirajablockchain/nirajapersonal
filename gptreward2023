@@ -39,5 +39,7 @@ def progress_reward_function(params):
     prev_progress = progress
     
     is_offtrack = params['is_offtrack']
+    if is_offtrack:
+        total_reward = 1e-7
 
     return float(total_reward)

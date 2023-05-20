@@ -36,5 +36,6 @@ def progress_reward_function(params):
         (DISTANCE_WEIGHT * distance_reward) +
         improvement_reward
     )
+    prev_progress = progress
 
     return float(total_reward)

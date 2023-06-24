@@ -1,0 +1,26 @@
+import com.intellij.openapi.components.ApplicationComponent;
+import org.jetbrains.annotations.NotNull;
+
+public class MyComponent implements ApplicationComponent {
+    private final MyInlineSuggestionListener myInlineSuggestionListener;
+
+    public MyComponent() {
+        this.myInlineSuggestionListener = new MyInlineSuggestionListener();
+    }
+
+    @Override
+    public void initComponent() {
+        myInlineSuggestionListener.register();
+    }
+
+    @Override
+    public void disposeComponent() {
+        myInlineSuggestionListener.unregister();
+    }
+
+    @Override
+    @NotNull
+    public String getComponentName() {
+        return "MyComponent";
+    }
+}

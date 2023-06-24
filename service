@@ -1,0 +1,19 @@
+import com.intellij.openapi.components.Service;
+import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.editor.event.EditorFactoryEvent;
+import com.intellij.openapi.editor.event.EditorFactoryListener;
+
+@Service
+public final class MyInlineSuggestionService implements EditorFactoryListener {
+    @Override
+    public void editorCreated(@NotNull EditorFactoryEvent event) {
+        MyInlineSuggestionListener listener = new MyInlineSuggestionListener(event.getEditor());
+        listener.register();
+        // Note: You should keep a reference to your listener if you need to unregister it later
+    }
+
+    @Override
+    public void editorReleased(@NotNull EditorFactoryEvent event) {
+        // TODO: Unregister your listener
+    }
+}

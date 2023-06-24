@@ -1,0 +1,9 @@
+<idea-plugin>
+    <!-- ... -->
+    <application-components>
+        <component>
+            <implementation-class>com.your.package.MyComponent</implementation-class>
+        </component>
+    </application-components>
+    <!-- ... -->
+</idea-plugin>

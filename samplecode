@@ -1,0 +1,49 @@
+package com.example.plugin;
+
+import com.intellij.codeInsight.completion.*;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.editor.event.DocumentEvent;
+import com.intellij.openapi.editor.event.DocumentListener;
+import com.intellij.openapi.editor.event.DocumentListenerProvider;
+import com.intellij.util.ProcessingContext;
+import org.jetbrains.annotations.NotNull;
+
+public class CodeCompletionPlugin implements DocumentListenerProvider {
+
+    @Override
+    public DocumentListener getDocumentListener() {
+        return new DocumentListener() {
+            @Override
+            public void documentChanged(@NotNull DocumentEvent event) {
+                // Implement your custom code completion logic here
+                String currentText = event.getDocument().getText();
+                // Gray out suggestions based on some condition
+                boolean grayOutSuggestions = shouldGrayOutSuggestions(currentText);
+
+                // Create a new completion contributor
+                CompletionContributor contributor = new CompletionContributor() {
+                    @Override
+                    public void fillCompletionVariants(@NotNull CompletionParameters parameters,
+                                                       @NotNull CompletionResultSet resultSet) {
+                        // Add completion variants with grayed out suggestions
+                        if (grayOutSuggestions) {
+                            resultSet.addElement(LookupElementBuilder.create("Suggestion 1").withItemTextForeground(GrayForeground))
+                            resultSet.addElement(LookupElementBuilder.create("Suggestion 2").withItemTextForeground(GrayForeground))
+                        }
+                        // Add regular completion variants
+                        resultSet.addElement(LookupElementBuilder.create("Regular Suggestion 1"))
+                        resultSet.addElement(LookupElementBuilder.create("Regular Suggestion 2"))
+                    }
+                };
+
+                // Register the completion contributor
+                CompletionContributor.extend(CompletionType.BASIC, contributor);
+            }
+        };
+    }
+
+    private boolean shouldGrayOutSuggestions(String text) {
+        // Implement your custom condition to determine whether to gray out suggestions or not
+        return text.contains("grayOut");
+    }
+}

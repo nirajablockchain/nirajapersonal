@@ -1,0 +1,111 @@
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.event.DocumentEvent;
+import com.intellij.openapi.editor.event.DocumentListener;
+
+public class EditorTracker implements DocumentListener {
+    private final Editor editor;
+    private String suggestion = "";
+
+    public EditorTracker(Editor editor) {
+        this.editor = editor;
+        editor.getDocument().addDocumentListener(this);
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public void setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
+    }
+
+    public String getSuggestion() {
+        return suggestion;
+    }
+
+    @Override
+    public void documentChanged(@NotNull DocumentEvent event) {
+        // TODO: Compute new suggestion based on the document text and caret position
+        suggestion = computeSuggestion(editor.getDocument().getText(), editor.getCaretModel().getOffset());
+    }
+
+    private String computeSuggestion(String text, int offset) {
+        // TODO: Implement this method
+        return "YourAutoCompleteSuggestion";
+    }
+}
+
+
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.command.CommandProcessor;
+import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
+import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
+import com.intellij.openapi.editor.Editor;
+
+public class MyTypedActionHandler implements TypedActionHandler {
+    private final EditorTracker editorTracker;
+    private final TypedActionHandler originalHandler;
+
+    public MyTypedActionHandler(EditorTracker editorTracker, TypedActionHandler originalHandler) {
+        this.editorTracker = editorTracker;
+        this.originalHandler = originalHandler;
+    }
+
+    @Override
+    public void execute(@NotNull Editor editor, char c, @NotNull DataContext dataContext) {
+        if (c == '\t' && editor.equals(editorTracker.getEditor())) {
+            String suggestion = editorTracker.getSuggestion();
+            if (suggestion != null) {
+                CommandProcessor.getInstance().executeCommand(
+                        editor.getProject(),
+                        () -> editor.getDocument().insertString(editor.getCaretModel().getOffset(), suggestion),
+                        "MyTypedActionHandler",
+                        "MyTypedActionHandler"
+                );
+                return;
+            }
+        }
+        originalHandler.execute(editor, c, dataContext);
+    }
+}
+
+
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.components.Service;
+import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.editor.actionSystem.EditorActionManager;
+import com.intellij.openapi.editor.actionSystem.TypedAction;
+import com.intellij.openapi.editor.event.EditorFactoryEvent;
+import com.intellij.openapi.editor.event.EditorFactoryListener;
+import org.jetbrains.annotations.NotNull;
+
+@Service
+public final class MyInlineSuggestionService implements EditorFactoryListener {
+    private EditorTracker editorTracker;
+
+    @Override
+    public void editorCreated(@NotNull EditorFactoryEvent event) {
+        editorTracker = new EditorTracker(event.getEditor());
+
+        EditorActionManager actionManager = EditorActionManager.getInstance();
+        TypedAction typedAction = actionManager.getTypedAction();
+        TypedActionHandler originalHandler = typedAction.getHandler();
+        typedAction.setupHandler(new MyTypedActionHandler(editorTracker, originalHandler));
+    }
+
+    @Override
+    public void editorReleased(@NotNull EditorFactoryEvent event) {
+        // TODO: Clean up your EditorTracker and TypedActionHandler
+    }
+}
+
+
+<idea-plugin>
+    <!-- ... -->
+    <extensions defaultExtensionNs="com.intellij">
+        <editorFactoryListener implementation="com.your.package.MyInlineSuggestionService"/>
+    </extensions>
+    <applicationService serviceImplementation="com.your.package.MyInlineSuggestionService"/>
+    <!-- ... -->
+</idea-plugin>

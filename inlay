@@ -1,0 +1,44 @@
+@Override
+public void documentChanged(@NotNull DocumentEvent event) {
+    Editor[] editors = EditorFactory.getInstance().getEditors(event.getDocument());
+    for (Editor editor : editors) {
+        // Compute new suggestion based on the document text and caret position
+        String suggestion = computeSuggestion(editor.getDocument().getText(), editor.getCaretModel().getOffset());
+
+        ApplicationManager.getApplication().invokeLater(() -> {
+            EditorInlay<ModelInlay> inlay = getInlayForEditor(editor);
+
+            if (inlay != null) {
+                // Remove old inlay
+                inlay.dispose();
+            }
+
+            // Create new inlay with grayed out text
+            InlayPresentationFactory factory = EditorInlay.Companion.getPresentationFactory();
+            InlayPresentation presentation = factory.smallText(suggestion, SimpleTextAttributes.GRAY_ATTRIBUTES.toTextAttributes());
+            InlayHintsSink<ModelInlay> sink = InlayHintsSinkImpl.create(editor);
+            ModelInlay modelInlay = new ModelInlay(presentation);
+            sink.addInlineElement(editor.getCaretModel().getOffset(), true, modelInlay);
+        });
+    }
+}
+
+private EditorInlay<ModelInlay> getInlayForEditor(Editor editor) {
+    return editor.getInlayModel().getInlineElementsInRange(editor.getCaretModel().getOffset(), editor.getDocument().getTextLength())
+        .stream()
+        .filter(inlay -> inlay.getRenderer() instanceof ModelInlay)
+        .findFirst()
+        .orElse(null);
+}
+
+import com.intellij.openapi.editor.Inlay;
+import com.intellij.openapi.editor.InlayPresentation;
+import com.intellij.openapi.editor.InlayPresentationFactory;
+import com.intellij.openapi.editor.ex.util.EditorUtil;
+import com.intellij.openapi.editor.impl.InlayModelImpl;
+import com.intellij.openapi.editor.impl.InlayHintsSinkImpl;
+import com.intellij.openapi.editor.impl.ModelInlay;
+import com.intellij.ui.SimpleTextAttributes;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.editor.hints.InlayHintsSink;
+

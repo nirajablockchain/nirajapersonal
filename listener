@@ -1,0 +1,53 @@
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.editor.event.DocumentEvent;
+import com.intellij.openapi.editor.event.DocumentListener;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.editor.markup.RangeHighlighter;
+import com.intellij.openapi.editor.colors.TextAttributesKey;
+import java.awt.Font;
+import java.awt.Color;
+// ...
+
+public class MyInlineSuggestionListener implements DocumentListener {
+  private RangeHighlighter rangeHighlighter;
+
+  @Override
+  public void documentChanged(@NotNull DocumentEvent event) {
+    Document document = event.getDocument();
+    String text = document.getText();
+
+    // Remove old suggestion
+    if (rangeHighlighter != null) {
+      document.getMarkupModel().removeHighlighter(rangeHighlighter);
+      rangeHighlighter = null;
+    }
+
+    // Compute new suggestion
+    String suggestion = computeSuggestion(text);
+    if (suggestion != null) {
+      // Create text attributes for suggestion (gray, italic)
+      TextAttributes attrs = new TextAttributes(Color.GRAY, null, null, null, Font.ITALIC);
+
+      // Add new suggestion
+      int offset = document.getTextLength();
+      rangeHighlighter = document.getMarkupModel().addRangeHighlighter(
+        offset, offset + suggestion.length(), 0, attrs, HighlighterTargetArea.EXACT_RANGE);
+    }
+  }
+
+  private String computeSuggestion(String text) {
+    // TODO: implement this method
+    return "YourAutoCompleteSuggestion";
+  }
+
+  // ...
+
+  public void register() {
+    EditorFactory.getInstance().getEventMulticaster().addDocumentListener(this);
+  }
+
+  public void unregister() {
+    EditorFactory.getInstance().getEventMulticaster().removeDocumentListener(this);
+  }
+}

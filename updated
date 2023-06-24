@@ -1,0 +1,100 @@
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.*;
+import com.intellij.ui.content.*;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ContextToolWindowFactory implements ToolWindowFactory {
+    private ToolWindow myToolWindow;
+    private List<JCheckBox> checkboxes = new ArrayList<>();
+    private JPanel myToolWindowContent;
+
+    // Create the tool window content.
+    @Override
+    public void createToolWindowContent(Project project, ToolWindow toolWindow) {
+        myToolWindow = toolWindow;
+        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        Content content = contentFactory.createContent(createToolWindowPanel(), "", false);
+        toolWindow.getContentManager().addContent(content);
+    }
+
+    private JPanel createToolWindowPanel() {
+        myToolWindowContent = new JPanel();
+        myToolWindowContent.setLayout(new BoxLayout(myToolWindowContent, BoxLayout.Y_AXIS));
+
+        // Add files from your context here
+        checkboxes.add(new JCheckBox("File 1"));
+        checkboxes.add(new JCheckBox("File 2"));
+        checkboxes.add(new JCheckBox("File 3"));
+
+        for (JCheckBox checkbox : checkboxes) {
+            myToolWindowContent.add(checkbox);
+        }
+
+        JButton updateContextButton = new JButton("Update Context");
+        updateContextButton.addActionListener(e -> updateContext());
+        myToolWindowContent.add(updateContextButton);
+
+        JButton clearContextButton = new JButton("Clear Context");
+        clearContextButton.addActionListener(e -> clearContext());
+        myToolWindowContent.add(clearContextButton);
+
+        return myToolWindowContent;
+    }
+
+    private void updateContext() {
+        // Logic to update context
+    }
+
+    private void clearContext() {
+        // Logic to clear context
+    }
+}
+
+
+
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
+
+public class SelectFilesAction extends AnAction {
+
+    @Override
+    public void actionPerformed(AnActionEvent e) {
+        // Trigger file selection dialog here
+        // Once done, open the tool window
+
+        ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(e.getProject());
+        ToolWindow toolWindow = toolWindowManager.getToolWindow("ContextToolWindow");
+
+        if (toolWindow != null) {
+            toolWindow.activate(null);
+        }
+    }
+}
+
+
+<idea-plugin>
+  <id>com.yourdomain.contextplugin</id>
+  <name>Context Plugin</name>
+  <version>1.0</version>
+  <vendor email="support@yourdomain.com">Your Name</vendor>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <projectComponent>
+      <implementationClass>com.yourdomain.contextplugin.ContextProjectComponent</implementationClass>
+    </projectComponent>
+    <toolWindow id="ContextToolWindow"
+                anchor="right"
+                factoryClass="com.yourdomain.contextplugin.ContextToolWindowFactory"/>
+    <action id="com.yourdomain.contextplugin.SelectFilesAction"
+            class="com.yourdomain.contextplugin.SelectFilesAction"
+            text="Select Files"
+            description="Select files to add to the context">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </action>
+  </extensions>
+</idea-plugin>
